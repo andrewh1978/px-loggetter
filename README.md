@@ -17,17 +17,17 @@ node-2-3   Ready    <none>   5h58m   v1.16.2
 2. Clone this repo:
 ```
 Cloning into 'px-loggetter'...
-remote: Enumerating objects: 23, done.
-remote: Counting objects: 100% (23/23), done.
-remote: Compressing objects: 100% (20/20), done.
-remote: Total 23 (delta 8), reused 10 (delta 2), pack-reused 0
-Unpacking objects: 100% (23/23), done.
+remote: Enumerating objects: 12, done.
+remote: Counting objects: 100% (12/12), done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 12 (delta 4), reused 11 (delta 3), pack-reused 0
+Unpacking objects: 100% (12/12), done.
 ```
 
 3. Configure:
 ```
 [root@master-2 ~]# cd px-loggetter
-[root@master-2 px-preflight]# vi go.sh
+[root@master-2 px-loggetter]# vi go.sh
 ```
 
  * Verify the `NODES` variable is being populated according to your infrastructure

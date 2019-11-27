@@ -6,6 +6,7 @@ metadata:
 data:
   entrypoint.sh: |-
     #!/bin/sh
+    journalctl -u portworx*
     touch /ready
     sleep 1d
 ---
@@ -37,28 +38,19 @@ spec:
                 - "false"
               - key: node-role.kubernetes.io/master
                 operator: DoesNotExist
-      hostNetwork: true
       terminationGracePeriodSeconds: 0
       volumes:
       - name: node-script
         configMap:
           defaultMode: 0700
           name: node-script
-      - name: host-var
+      - name: run-log
         hostPath:
-          path: /var
+          path: /run/log
           type: Directory
-      - name: host-opt
-        hostPath:
-          path: /opt
-          type: Directory
-      - name: docker-sock
-        hostPath:
-          path: /var/run/docker.sock
-          type: Socket
       containers:
         - name: node
-          image: alpine:latest
+          image: centos:7
           command:
           - /entrypoint.sh
           readinessProbe:
@@ -71,12 +63,8 @@ spec:
             mountPath: /entrypoint.sh
             readOnly: true
             subPath: entrypoint.sh
-          - name: host-var
-            mountPath: /host-var
-          - name: host-opt
-            mountPath: /host-opt
-          - name: docker-sock
-            mountPath: /var/run/docker.sock
+          - name: run-log
+            mountPath: /run/log
           env:
             - name: NODES
               valueFrom:

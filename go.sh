@@ -17,7 +17,7 @@ kubectl wait pod -lname=node --for=condition=ready -n kube-system
 NODE_PODS=$(kubectl get pods -lname=node -n kube-system --no-headers -o custom-columns=NAME:.metadata.name)
 
 >/var/tmp/loggetter
-for p in $NODE_PODS; do kubectl logs $p -n kube-system --tail=-1; done | >>/var/tmp/loggetter
+for p in $NODE_PODS; do kubectl logs $p -n kube-system --tail=-1 >>/var/tmp/loggetter ; done
 
 kubectl delete cm loggetter-config -n kube-system
 kubectl delete cm node-script -n kube-system

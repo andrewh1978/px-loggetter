@@ -35,6 +35,7 @@ Unpacking objects: 100% (12/12), done.
 4. Run:
 ```
 [root@master-2 px-loggetter]# sh go.sh
+```
 
 5. Copy `/var/tmp/loggetter` to wherever you want to run you ELK stack, along with logstash.conf
 

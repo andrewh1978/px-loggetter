@@ -37,9 +37,11 @@ Unpacking objects: 100% (12/12), done.
 [root@master-2 px-loggetter]# sh go.sh
 ```
 
-5. Copy `/var/tmp/loggetter` to wherever you want to run your ELK stack, along with logstash.conf
+5. Copy `/var/tmp/loggetter` to wherever you want to run your ELK stack, along with `logstash.conf`.
 
 6. Start ELK:
 ```
 mbp$ docker run -e MAX_MAP_COUNT=262144 -p 5601:5601 -p 9200:9200 -p 5044:5044 -v $PWD/loggetter:/loggetter -v /var/empty:/etc/logstash/conf.d -v $PWD/logstash-loggetter.conf:/etc/logstash/conf.d/01-loggetter.conf  --rm -it --name elk sebp/elk
 ```
+
+7. Browse to `http://localhost:5601`.

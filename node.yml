@@ -6,8 +6,13 @@ metadata:
 data:
   entrypoint.sh: |-
     #!/bin/sh
-    journalctl -u portworx*
-    journalctl -k
+    if [ -d /var/log/journal ]; then
+      journalctl -D /var/log/journal -u portworx*
+      journalctl -D /var/log/journal -k
+    elif [ -d /run/log/journal ]; then
+      journalctl -D /run/log/journal -u portworx*
+      journalctl -D /run/log/journal -k
+    fi
     touch /ready
     sleep 1d
 ---
@@ -49,6 +54,10 @@ spec:
         hostPath:
           path: /run/log
           type: Directory
+      - name: var-log
+        hostPath:
+          path: /var/log
+          type: Directory
       containers:
         - name: node
           image: centos:7
@@ -66,6 +75,8 @@ spec:
             subPath: entrypoint.sh
           - name: run-log
             mountPath: /run/log
+          - name: var-log
+            mountPath: /var/log
           env:
             - name: NODES
               valueFrom:
